@@ -1,0 +1,41 @@
+<tool id="at_content" name="AT content" version="0.1.0" python_template_version="3.5">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        python '${__tool_directory__}/at_content.py' --fasta '$input1' --out '$output1'
+    ]]></command>
+    <inputs>
+        <param type="data" name="input1" format="fasta" />
+    </inputs>
+    <outputs>
+        <data name="output1" format="txt" />
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="example.fasta"/>
+            <output name="output1" file="example.txt"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: at_content.py --fasta input_fasta --out output_file
+
+AT content of sequences in a fasta
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --fasta FASTA  Input fasta file
+  --out OUT      Output file
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubo-william-white,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {o-william-white},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/o-william-white},
+}</citation>
+    </citations>
+</tool>
