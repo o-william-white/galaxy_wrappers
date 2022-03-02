@@ -1,0 +1,47 @@
+<tool id="split_fasta" name="Split fasta" version="0.1.0" python_template_version="3.5">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        python '${__tool_directory__}/split_fasta.py' --fasta '$input1' --out split_files
+    ]]></command>
+    <inputs>
+        <param type="data" name="input1" format="fasta" />
+    </inputs>
+    <outputs>
+        <collection name="split_output" type="list" label="Fasta split into individual sequences">
+            <discover_datasets pattern="__name_and_ext__" directory="split_files" />
+        </collection>
+    </outputs>
+    <tests>
+        <test>
+            <param name="input1" value="example.fasta" />
+            <output_collection name="split_output" count="3">
+                <element name="seq1" file="split_files/seq1.fasta" ftype="fasta" />
+                <element name="seq2" file="split_files/seq2.fasta" ftype="fasta" />
+                <element name="seq3" file="split_files/seq3.fasta" ftype="fasta" />
+            </output_collection>
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: split_fasta.py--fasta input_fasta --out output_file
+
+Split fasta into multiple files with individual sequences
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --fasta FASTA  Input fasta file
+  --out OUT      Output directory
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubo-william-white,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {o-william-white},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/o-william-white},
+}</citation>
+    </citations>
+</tool>
