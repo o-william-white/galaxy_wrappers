@@ -1,0 +1,65 @@
+<tool id="get_organelle_from_reads" name="Get organelle from reads" version="0.1.0" python_template_version="3.5">
+    <requirements>
+        <requirement type="package" version="1.7.5">GetOrganelle</requirement>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+	get_organelle_from_reads.py
+	# if single_paired == "single"
+	    -u '$single'
+	# endif
+	# if single_paired == "paired"
+	    -1 '$forward' -2 '$reverse'
+	# endif
+       	-o results_directory -F '$organelle_type'
+    ]]></command>
+    <inputs>
+	<conditional name="single_paired">
+            <param name="single_paired_selector" type="select" label="Single-end or paired reads">
+                <option value="single" selected="true">Single-end</option>
+                <option value="paired">Paired</option>
+	    </param>
+            <when value="single">
+                <param type="data" name="single" format="fastq" label="Single-end input fastq"/>
+	    </when>
+	    <when value="paired">
+		<param type="data" name="forward" format="fastq" label="Forward input fastq"/>
+                <param type="data" name="reverse" format="fastq" label="Reverse input fastq"/>
+            </when>
+        </conditional>
+        <param type="select" name="organelle_type">
+            <option value="embplant_cp" selected="true">Plant chloroplast</option>
+            <option value="embplant_mt">Plant mitochondrial</option>
+	    <option value="embplant_nr">Plant ribosomal</option>
+	    <option value="fungus_mt">Fungus mitochondrial</option>
+	    <option value="fungus_nr">Fungus nuclear</option>
+	    <option value="animal_mt">Animal mitochondrial</option>
+	    <option value="other_mt">Other mitochondrial</option>
+        </param>
+    </inputs>
+    <outputs>
+        <data format="txt" name="logfile" from_work_dir="results_directory/get_org.log.txt"/>
+    </outputs>
+    <tests>
+        <test>
+	    <param name="single_paired_selector" value="paired"/>
+	    <param name="forward" value="Arabidopsis_simulated.1.fq.gz"/>
+	    <param name="reverse" value="Arabidopsis_simulated.2.fq.gz"/>
+            <output name="logfile" file="results_directory/get_org.log.txt"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+	    GetOrganelle v1.7.5.3 get_organelle_from_reads.py assembles organelle genomes from genome skimming data. 
+	    See https://github.com/Kinggerm/GetOrganelle for more information.
+	    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubGetOrganelle,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {GetOrganelle},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/Kinggerm/GetOrganelle},
+}</citation>
+    </citations>
+</tool>
