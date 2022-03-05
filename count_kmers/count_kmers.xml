@@ -1,0 +1,46 @@
+<tool id="count_kmers" name="Count kmers" version="0.1.0" python_template_version="3.5">
+    <requirements>
+    </requirements>
+    <command detect_errors="exit_code"><![CDATA[
+        python '${__tool_directory__}/count_kmers.py' --fasta '$input1' --kmer_size '$input2'
+    ]]></command>
+    <inputs>
+	<param type="data" name="input1" format="fasta" />
+	<param type="integer" name="input2" value="3" min="2" max="31" />
+    </inputs>
+    <outputs>
+        <data name="output1" format="txt" from_work_dir="kmer_counts.txt" label='${tool.name} on ${on_string}: kmers'/>
+        <data name="output2" format="txt" from_work_dir="log.txt" label='${tool.name} on ${on_string}: log'/>
+    </outputs>
+    <tests>
+        <test>
+	    <param name="input1" value="example.fasta"/>
+            <param name="input2" value="3"/>
+	    <output name="output1" file="kmer_counts.txt"/>
+	    <output name="output2" file="log.txt"/>
+        </test>
+    </tests>
+    <help><![CDATA[
+        usage: python get_kmers.py --input example.fasta -k kmer_size
+
+Return kmers counts for sequences in a fasta file.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --fasta FASTA         Input fasta/q file
+  --kmer_size KMER_SIZE
+                        Kmer size
+
+    ]]></help>
+    <citations>
+        <citation type="bibtex">
+@misc{githubo-william-white,
+  author = {LastTODO, FirstTODO},
+  year = {TODO},
+  title = {o-william-white},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/o-william-white},
+}</citation>
+    </citations>
+</tool>
